@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
+  before_action :ensure_current_user, {only: [:edit, :update]}
+  
   def show
     @user = User.find(params[:id])
     @post_images = @user.post_images.page(params[:page]).reverse_order
